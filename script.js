@@ -21,7 +21,7 @@ function updateDashboard() {
             document.getElementById('progress-fill').style.width = progress + "%";
 
             document.getElementById('status').textContent =
-                `Updated: ${new Date().toLocaleTimeString()}`;
+                `Time: ${new Date().toLocaleTimeString()}`;
         } else {
             document.getElementById('status').textContent = "API error";
         }
@@ -36,3 +36,4 @@ function updateDashboard() {
 // Refresh every 1 second
 updateDashboard();
 setInterval(updateDashboard, 1000);
+
