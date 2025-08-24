@@ -4,36 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SA-MP Players</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #fff;
-    }
-    .card {
-      background: rgba(255,255,255,0.08);
-      padding: 2rem 3rem;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
-    h1 {
-      margin-bottom: 1rem;
-    }
-    .status {
-      font-size: 2rem;
-      font-weight: bold;
-      background: rgba(0,0,0,0.4);
-      padding: 0.5rem 1.2rem;
-      border-radius: 10px;
-      display: inline-block;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="card">
@@ -41,19 +12,6 @@
     <div id="status" class="status">Loading...</div>
   </div>
 
-  <script>
-    async function refreshStatus() {
-      try {
-        const res = await fetch("/api/players");
-        const data = await res.json();
-        document.getElementById("status").textContent =
-          `${data.players ?? 0} / ${data.maxplayers ?? 250} players`;
-      } catch {
-        document.getElementById("status").textContent = "Error fetching data";
-      }
-    }
-    refreshStatus();
-    setInterval(refreshStatus, 1000);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
