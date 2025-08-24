@@ -3,14 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SA-MP 2025 Dashboard</title>
+<title>SA-MP Server Dashboard</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="dashboard">
     <h1>SA-MP Server</h1>
-    <div class="player-count" id="player-count">0</div>
+    <div class="player-info">
+        <span id="player-count">0</span> / <span id="max-players">0</span> Players
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
     <div class="status" id="status">Loading...</div>
 </div>
 
