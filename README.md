@@ -1,9 +1,13 @@
-# SA-MP Server Status Page
+# SA-MP Players (Auto-Refresh 1s)
 
-A modern **Node.js + Express** web page that shows the number of SA-MP players online.
+Static webpage that fetches `https://api.g-stone.ro/samp/` and shows `players / maxplayers`.  
+Refresh rate: **1 second**.
 
-## 🚀 Features
-- Displays current players online: `x / 250`
-- Modern responsive design
-- Auto-refresh every 5 seconds
-
+## Run locally
+Just open `index.html` in your browser.
+(If your browser blocks CORS for file://, serve it:)
+```bash
+# python
+python -m http.server 8080
+# or Node
+npx serve
