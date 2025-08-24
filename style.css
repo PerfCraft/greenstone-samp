@@ -1,15 +1,9 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #0a0a0a, #1e1e1e);
     color: #fff;
     min-height: 100vh;
+    margin: 0;
 }
 
 /* Header */
@@ -93,7 +87,6 @@ header h1 {
     margin-top: 0.3rem;
 }
 
-/* Loading text */
 .player-list p {
     grid-column: 1 / -1;
     text-align: center;
