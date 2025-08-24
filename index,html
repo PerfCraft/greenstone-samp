@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SA-MP Players</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <style>
+    :root { --bg1:#0f172a; --bg2:#1e293b; --fg:#e2e8f0; --muted:#94a3b8; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 600px at 20% 10%, #111827 0%, var(--bg1) 40%, var(--bg2) 100%);
+      color: var(--fg);
+    }
+    .card {
+      width: min(92vw, 480px);
+      padding: 28px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pulse {
+      position: absolute; inset: -60%;
+      background: conic-gradient(from 180deg at 50% 50%, transparent 0 75%, rgba(255,255,255,0.06) 75% 100%);
+      filter: blur(30px); animation: spin 12s linear infinite;
+      opacity: .4; pointer-events: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    h1 { margin: 0 0 10px; font-size: clamp(18px, 2.8vw, 22px); font-weight: 600; color: var(--muted); }
+    .counter {
+      display: inline-flex; align-items: baseline; gap: 10px;
+      font-weight: 800; letter-spacing: .5px;
+      padding: 14px 20px; border-radius: 14px;
+      background: rgba(0,0,0,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+      font-size: clamp(28px, 8vw, 44px);
+    }
+    .max { font-size: .55em; color: var(--muted); font-weight: 600; }
+    .meta { margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .ok { color: #22c55e; } .bad { color: #ef4444; }
+    .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; background:#22c55e; }
+    .bad .dot { background:#ef4444; }
+    button.refresh {
+      margin-top: 18px; border: none; cursor: pointer;
+      padding: 10px 14px; border-radius: 10px;
+      color: var(--fg); background: rgba(255,255,255,.08);
+    }
+    button.refresh:active { transform: translateY(1px); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="pulse" aria-hidden="true"></div>
+    <h1>SA-MP Players Online</h1>
+    <div id="counter" class="counter">— <span class="max">/ 250</span></div>
+    <div id="meta" class="meta"><span class="dot"></span><span id="status">Connecting…</span></div>
+    <button class="refresh" id="manual">Refresh now</button>
+  </div>
+
+  <script>
+    const API = "https://api.g-stone.ro/samp/";
+    const counterEl = document.getElementById("counter");
+    const metaEl = document.getElementById("meta");
+    const statusEl = document.getElementById("status");
+    const manualBtn = document.getElementById("manual");
+
+    async function getJSON(url, { timeout = 5000 } = {}) {
+      const ctrl = new AbortController();
+      const id = setTimeout(() => ctrl.abort(), timeout);
+      try {
+        const res = await fetch(url, { signal: ctrl.signal, cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return await res.json();
+      } finally {
+        clearTimeout(id);
+      }
+    }
+
+    function render(players, maxplayers) {
+      counterEl.innerHTML = `${players} <span class="max">/ ${maxplayers}</span>`;
+      statusEl.textContent = "Live";
+      metaEl.classList.remove("bad"); metaEl.classList.add("ok");
+    }
+
+    function renderError(msg) {
+      counterEl.innerHTML = `— <span class="max">/ 250</span>`;
+      statusEl.textContent = msg || "Error";
+      metaEl.classList.remove("ok"); metaEl.classList.add("bad");
+    }
+
+    async function tick() {
+      try {
+        const data = await getJSON(API);
+        // Expected shape: { players: number, maxplayers: number }
+        const players = Number(data.players ?? 0);
+        const max = Number(data.maxplayers ?? 250);
+        render(isFinite(players) ? players : 0, isFinite(max) && max > 0 ? max : 250);
+      } catch (e) {
+        renderError("Connection issue");
+        // (optional) console.log(e);
+      }
+    }
+
+    // manual refresh
+    manualBtn.addEventListener("click", tick);
+
+    // start immediately, then every 1s
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
