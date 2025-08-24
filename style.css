@@ -1,36 +1,102 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a1a, #282828);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #1e1e1e);
     color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
-    padding: 2rem;
 }
 
-h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+/* Header */
+header {
     text-align: center;
-    color: #00ffe0;
-    text-shadow: 0 0 10px #00ffe0;
+    padding: 2rem 1rem 1rem 1rem;
 }
 
-#players {
-    background: rgba(0,0,0,0.6);
-    border-radius: 12px;
-    padding: 1.5rem;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 0 20px rgba(0,255,224,0.3);
-    text-align: center;
+header h1 {
+    font-size: 2.5rem;
+    color: #0ff;
+    text-shadow: 0 0 8px #0ff, 0 0 16px #0ff80;
 }
 
 .status {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #aaa;
+    margin-top: 0.5rem;
+}
+
+/* Stats cards */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(0,0,0,0.5);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
     text-align: center;
+    box-shadow: 0 0 20px rgba(0,255,224,0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px rgba(0,255,224,0.6);
+}
+
+.stat-card span {
+    display: block;
+    font-size: 2rem;
+    color: #0ff;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+/* Player list */
+.player-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.player-card {
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,255,224,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0,255,224,0.6);
+}
+
+.player-card span {
+    display: block;
+    font-size: 1.1rem;
+    color: #0ff;
+    margin-top: 0.3rem;
+}
+
+/* Loading text */
+.player-list p {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #888;
 }
