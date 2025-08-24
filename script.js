@@ -1,4 +1,4 @@
-const API_URL = "https://api.g-stone.ro/samp/";
+const API_URL = "https://api.g-stone.r/samp/";
 
 function updateDashboard() {
 
@@ -36,5 +36,6 @@ function updateDashboard() {
 
 updateDashboard();
 setInterval(updateDashboard, 1000);
+
 
 
