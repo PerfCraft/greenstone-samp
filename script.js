@@ -1,11 +1,11 @@
-const API_URL = "https://api.g-stone.ro/samp/"; // Replace with your actual API URL
+const API_URL = "https://api.g-stone.ro/samp/";
 
 function updateDashboard() {
-    // Remove old script if exists
+
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
 
-    // Load the API dynamically
+
     const script = document.createElement('script');
     script.id = 'samp-api';
     script.src = API_URL + "?cache=" + new Date().getTime();
@@ -33,7 +33,8 @@ function updateDashboard() {
     document.body.appendChild(script);
 }
 
-// Refresh every 1 second
+
 updateDashboard();
 setInterval(updateDashboard, 1000);
+
 
