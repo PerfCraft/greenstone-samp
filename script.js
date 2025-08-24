@@ -1,24 +1,30 @@
-function renderDashboard() {
-    const playersDiv = document.getElementById('players');
+const API_URL = "https://api.g-stone.ro/samp/"; // Your API returning var api = {...}
 
-    // Update stats
-    document.getElementById('player-count').textContent = api.players;
-    document.getElementById('max-players').textContent = api.maxplayers;
-    document.getElementById('status').textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+function updateDashboard() {
+    // Remove old script if exists
+    const oldScript = document.getElementById('samp-api');
+    if (oldScript) oldScript.remove();
 
-    // Render player cards
-    playersDiv.innerHTML = "";
-    if (!api.playerNames || api.playerNames.length === 0) {
-        playersDiv.innerHTML = "<p>No players online.</p>";
-    } else {
-        api.playerNames.forEach(name => {
-            const card = document.createElement('div');
-            card.className = 'player-card';
-            card.innerHTML = `<strong>${name}</strong><span>Online</span>`;
-            playersDiv.appendChild(card);
-        });
-    }
+    // Load the API dynamically
+    const script = document.createElement('script');
+    script.id = 'samp-api';
+    script.src = API_URL + "?cache=" + new Date().getTime(); // prevent caching
+    script.onload = () => {
+        if (typeof api !== 'undefined') {
+            document.getElementById('player-count').textContent = api.players;
+            document.getElementById('status').textContent =
+                `Max Players: ${api.maxplayers} | Updated: ${new Date().toLocaleTimeString()}`;
+        } else {
+            document.getElementById('status').textContent = "API error";
+        }
+    };
+    script.onerror = () => {
+        document.getElementById('status').textContent = "Failed to load API";
+    };
+
+    document.body.appendChild(script);
 }
 
-// Initial render
-renderDashboard();
+// Refresh every 1 second
+updateDashboard();
+setInterval(updateDashboard, 1000);
