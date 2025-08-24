@@ -1,4 +1,4 @@
-const API_URL = "https://api.g-stone.ro/samp/"; // Your API returning var api = {...}
+const API_URL = "https://api.g-stone.ro/samp/"; // Replace with your actual API URL
 
 function updateDashboard() {
     // Remove old script if exists
@@ -8,12 +8,20 @@ function updateDashboard() {
     // Load the API dynamically
     const script = document.createElement('script');
     script.id = 'samp-api';
-    script.src = API_URL + "?cache=" + new Date().getTime(); // prevent caching
+    script.src = API_URL + "?cache=" + new Date().getTime();
     script.onload = () => {
         if (typeof api !== 'undefined') {
-            document.getElementById('player-count').textContent = api.players;
+            const playerCount = api.players;
+            const maxPlayers = api.maxplayers;
+
+            document.getElementById('player-count').textContent = playerCount;
+            document.getElementById('max-players').textContent = maxPlayers;
+
+            const progress = Math.min((playerCount / maxPlayers) * 100, 100);
+            document.getElementById('progress-fill').style.width = progress + "%";
+
             document.getElementById('status').textContent =
-                `Max Players: ${api.maxplayers} | Updated: ${new Date().toLocaleTimeString()}`;
+                `Updated: ${new Date().toLocaleTimeString()}`;
         } else {
             document.getElementById('status').textContent = "API error";
         }
