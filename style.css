@@ -2,18 +2,18 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: #000; /* black background */
+    background: #000; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff; /* main color white */
+    color: #fff; 
 }
 
 .dashboard {
     text-align: center;
     padding: 3rem 2rem;
-    background: rgba(255,255,255,0.05); /* subtle white overlay */
+    background: rgba(255,255,255,0.05); 
     border-radius: 20px;
     box-shadow: 0 0 40px rgba(255,255,255,0.1);
     backdrop-filter: blur(12px);
@@ -32,12 +32,12 @@ h1 {
     color: #fff;
 }
 
-/* Progress bar */
+
 .progress-bar {
     width: 300px;
     max-width: 90%;
     height: 30px;
-    background: rgba(255,255,255,0.1); /* subtle track */
+    background: rgba(255,255,255,0.1); 
     border-radius: 15px;
     margin: 1rem auto;
     overflow: hidden;
@@ -47,7 +47,7 @@ h1 {
 .progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(270deg, #fff, #ccc, #fff); /* animated white gradient */
+    background: linear-gradient(270deg, #fff, #ccc, #fff); 
     border-radius: 15px 0 0 15px;
     transition: width 0.5s ease;
     background-size: 400% 100%;
@@ -65,3 +65,4 @@ h1 {
     font-size: 1rem;
     color: #fff;
 }
+
