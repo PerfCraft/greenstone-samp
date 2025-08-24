@@ -3,17 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SA-MP Server Players</title>
+<title>SA-MP 2025 Dashboard</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>SA-MP Server Players</h1>
+<header>
+    <h1>SA-MP Server Dashboard</h1>
+    <div class="status" id="status">Loading...</div>
+</header>
 
-<div id="players">
-    <p>Loading players...</p>
-</div>
-<div class="status" id="status"></div>
+<main>
+    <section class="stats">
+        <div class="stat-card">
+            <span id="player-count">0</span>
+            <p>Players Online</p>
+        </div>
+        <div class="stat-card">
+            <span id="max-players">0</span>
+            <p>Max Players</p>
+        </div>
+    </section>
+
+    <section id="players" class="player-list">
+        <p>Loading players...</p>
+    </section>
+</main>
 
 <script src="script.js"></script>
 </body>
