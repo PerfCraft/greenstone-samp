@@ -1,7 +1,7 @@
 {
-  "name": "discord-samp-status",
+  "name": "samp-status",
   "version": "1.0.0",
-  "description": "Discord online forever + SA-MP server status page",
+  "description": "Modern web page showing SA-MP server players",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
