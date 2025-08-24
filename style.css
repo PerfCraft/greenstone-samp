@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0a0a0a, #1e1e1e);
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,33 +15,47 @@ body {
     padding: 3rem 2rem;
     background: rgba(0,0,0,0.5);
     border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0,255,224,0.4);
-    backdrop-filter: blur(10px);
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 20px rgba(0,255,224,0.4); }
-    50% { box-shadow: 0 0 40px rgba(0,255,224,0.8); }
-    100% { box-shadow: 0 0 60px rgba(0,255,224,1); }
+    box-shadow: 0 0 50px rgba(0,255,224,0.4);
+    backdrop-filter: blur(12px);
 }
 
 h1 {
     font-size: 2.5rem;
     color: #0ff;
-    text-shadow: 0 0 8px #0ff, 0 0 16px #0ff80;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff80;
     margin-bottom: 2rem;
 }
 
-.player-count {
-    font-size: 6rem;
+.player-info {
+    font-size: 2rem;
     font-weight: bold;
-    color: #0ff;
-    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff80, 0 0 30px #0ff80;
     margin-bottom: 1rem;
+    color: #0ff;
+    text-shadow: 0 0 8px #0ff, 0 0 16px #0ff80;
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 300px;
+    max-width: 90%;
+    height: 30px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 15px;
+    margin: 1rem auto;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,255,224,0.3) inset;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0ff, #00aaff);
+    border-radius: 15px 0 0 15px;
+    transition: width 0.5s ease;
 }
 
 .status {
+    margin-top: 1rem;
     font-size: 1rem;
     color: #aaa;
 }
