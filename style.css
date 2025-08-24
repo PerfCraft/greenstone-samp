@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: #fff;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2rem 3rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+.status {
+  font-size: 2rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  display: inline-block;
+}
