@@ -1,95 +1,47 @@
 body {
+    margin: 0;
+    padding: 0;
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #0a0a0a, #1e1e1e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     color: #fff;
-    min-height: 100vh;
-    margin: 0;
 }
 
-/* Header */
-header {
+.dashboard {
     text-align: center;
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 3rem 2rem;
+    background: rgba(0,0,0,0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,255,224,0.4);
+    backdrop-filter: blur(10px);
+    animation: glow 2s infinite alternate;
 }
 
-header h1 {
+@keyframes glow {
+    0% { box-shadow: 0 0 20px rgba(0,255,224,0.4); }
+    50% { box-shadow: 0 0 40px rgba(0,255,224,0.8); }
+    100% { box-shadow: 0 0 60px rgba(0,255,224,1); }
+}
+
+h1 {
     font-size: 2.5rem;
     color: #0ff;
     text-shadow: 0 0 8px #0ff, 0 0 16px #0ff80;
+    margin-bottom: 2rem;
+}
+
+.player-count {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff80, 0 0 30px #0ff80;
+    margin-bottom: 1rem;
 }
 
 .status {
     font-size: 1rem;
     color: #aaa;
-    margin-top: 0.5rem;
-}
-
-/* Stats cards */
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 1rem 0;
-    flex-wrap: wrap;
-}
-
-.stat-card {
-    background: rgba(0,0,0,0.5);
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(0,255,224,0.3);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 35px rgba(0,255,224,0.6);
-}
-
-.stat-card span {
-    display: block;
-    font-size: 2rem;
-    color: #0ff;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-}
-
-/* Player list */
-.player-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.player-card {
-    background: rgba(0,0,0,0.6);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0,255,224,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.player-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0,255,224,0.6);
-}
-
-.player-card span {
-    display: block;
-    font-size: 1.1rem;
-    color: #0ff;
-    margin-top: 0.3rem;
-}
-
-.player-list p {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 1.1rem;
-    color: #888;
 }
