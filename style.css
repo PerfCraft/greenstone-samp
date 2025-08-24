@@ -1,31 +1,44 @@
 body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #141e30, #243b55);
-  color: #fff;
-}
-
-.card {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2rem 3rem;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #282828);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 2rem;
 }
 
 h1 {
-  margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #00ffe0;
+    text-shadow: 0 0 10px #00ffe0;
+}
+
+#players {
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0,255,224,0.3);
+}
+
+.player {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.player:last-child {
+    border-bottom: none;
 }
 
 .status {
-  font-size: 2rem;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 0.5rem 1.2rem;
-  border-radius: 10px;
-  display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #aaa;
+    text-align: center;
 }
