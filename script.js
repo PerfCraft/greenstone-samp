@@ -1,34 +1,40 @@
-function updatePlayers() {
-    if (typeof api !== 'undefined') {
+const API = "/.netlify/functions/samp-proxy"; // Netlify function
+
+async function fetchPlayers() {
+    try {
+        const res = await fetch(API);
+        if (!res.ok) throw new Error("Failed to fetch API");
+        const api = await res.json();
+
+        // Update stats
+        document.getElementById('player-count').textContent = api.players;
+        document.getElementById('max-players').textContent = api.maxplayers;
+        document.getElementById('status').textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+
+        // Update player list
+        const playersDiv = document.getElementById('players');
+        playersDiv.innerHTML = "";
+
+        if (api.players === 0) {
+            playersDiv.innerHTML = "<p>No players online.</p>";
+        } else {
+            // If API provides real player names, replace fake names below
+            for (let i = 1; i <= api.players; i++) {
+                const card = document.createElement('div');
+                card.className = 'player-card';
+                card.innerHTML = `<strong>Player ${i}</strong><span>Online</span>`;
+                playersDiv.appendChild(card);
+            }
+        }
+    } catch (error) {
         const playersDiv = document.getElementById('players');
         const statusDiv = document.getElementById('status');
-
-        playersDiv.innerHTML = `<p>${api.players} players online</p>`;
-        statusDiv.textContent = `Max players: ${api.maxplayers}`;
-    } else {
-        document.getElementById('players').innerHTML = "<p>Loading...</p>";
+        playersDiv.innerHTML = "<p>Error fetching players.</p>";
+        statusDiv.textContent = error.message;
+        console.error(error);
     }
 }
 
-function loadAPI() {
-    // Remove old script if exists
-    const oldScript = document.getElementById('samp-api-script');
-    if (oldScript) oldScript.remove();
-
-    const script = document.createElement('script');
-    script.id = 'samp-api-script';
-    script.src = "https://api.g-stone.ro/samp/"; // URL returning var api
-    script.onload = () => {
-        updatePlayers();
-        // Refresh every 5 seconds
-        setTimeout(loadAPI, 5000);
-    };
-    script.onerror = () => {
-        document.getElementById('players').innerHTML = "<p>Error loading players.</p>";
-        document.getElementById('status').textContent = "";
-    };
-    document.body.appendChild(script);
-}
-
-// Start loading
-loadAPI();
+// Refresh every 5 seconds
+fetchPlayers();
+setInterval(fetchPlayers, 5000);
