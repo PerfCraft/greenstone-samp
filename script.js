@@ -1,32 +1,34 @@
-const API = "https://corsproxy.io/?https://api.g-stone.ro/samp/";
-
-async function fetchPlayers() {
-    try {
-        const res = await fetch(API);
-        if (!res.ok) throw new Error("Network response was not ok");
-        const data = await res.json();
-
+function updatePlayers() {
+    if (typeof api !== 'undefined') {
         const playersDiv = document.getElementById('players');
         const statusDiv = document.getElementById('status');
 
-        if (data && data.players) {
-            if (data.players.length === 0) {
-                playersDiv.innerHTML = "<p>No players online.</p>";
-            } else {
-                playersDiv.innerHTML = data.players.map(p => `<div class="player">${p.name}</div>`).join('');
-            }
-            statusDiv.textContent = `Updated: ${new Date().toLocaleTimeString()} | ${data.players.length}/250 players`;
-        } else {
-            playersDiv.innerHTML = "<p>Server data unavailable.</p>";
-            statusDiv.textContent = "";
-        }
-    } catch (error) {
-        document.getElementById('players').innerHTML = "<p>Error fetching players.</p>";
-        document.getElementById('status').textContent = error.message;
-        console.error(error);
+        playersDiv.innerHTML = `<p>${api.players} players online</p>`;
+        statusDiv.textContent = `Max players: ${api.maxplayers}`;
+    } else {
+        document.getElementById('players').innerHTML = "<p>Loading...</p>";
     }
 }
 
-// Refresh every second
-fetchPlayers();
-setInterval(fetchPlayers, 1000);
+function loadAPI() {
+    // Remove old script if exists
+    const oldScript = document.getElementById('samp-api-script');
+    if (oldScript) oldScript.remove();
+
+    const script = document.createElement('script');
+    script.id = 'samp-api-script';
+    script.src = "https://api.g-stone.ro/samp/"; // URL returning var api
+    script.onload = () => {
+        updatePlayers();
+        // Refresh every 5 seconds
+        setTimeout(loadAPI, 5000);
+    };
+    script.onerror = () => {
+        document.getElementById('players').innerHTML = "<p>Error loading players.</p>";
+        document.getElementById('status').textContent = "";
+    };
+    document.body.appendChild(script);
+}
+
+// Start loading
+loadAPI();
