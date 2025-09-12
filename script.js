@@ -2,10 +2,11 @@ const API_URL = "https://api.g-stone.ro/samp/";
 
 function updateDashboard() {
 
+    // Remove old SA-MP API script
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
 
-
+    // Load SA-MP API
     const script = document.createElement('script');
     script.id = 'samp-api';
     script.src = API_URL + "?cache=" + new Date().getTime();
@@ -20,8 +21,7 @@ function updateDashboard() {
             const progress = Math.min((playerCount / maxPlayers) * 100, 100);
             document.getElementById('progress-fill').style.width = progress + "%";
 
-            document.getElementById('status').textContent =
-                `Time: ${new Date().toLocaleTimeString()}`;
+            document.getElementById('status').textContent = "SA-MP Server Online";
         } else {
             document.getElementById('status').textContent = "API error";
         }
@@ -33,10 +33,8 @@ function updateDashboard() {
     document.body.appendChild(script);
 }
 
-
+// Initial run
 updateDashboard();
+
+// Update every second
 setInterval(updateDashboard, 1000);
-
-
-
-
