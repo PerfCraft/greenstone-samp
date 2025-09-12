@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Inter';
     background: #000; 
     display: flex;
     justify-content: center;
@@ -65,5 +65,6 @@ h1 {
     font-size: 1rem;
     color: #fff;
 }
+
 
 
