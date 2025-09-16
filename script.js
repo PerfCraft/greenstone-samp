@@ -1,7 +1,7 @@
-const GS_API_URL = "https://api.g-stone.ro/samp/"; 
-const GM_API_URL = "https://api.gamemonitoring.net/servers/9337618/players?limit=250";
+const GS_API_URL = "https://api.g-stone.ro/samp/";
+const GM_API_URL = "https://api.gamemonitoring.net/servers/9337618/players?limit=100";
 
-// Update player count from GreenStone API
+// === GREENSTONE: Count + Progress ===
 function updateGreenStone() {
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
@@ -32,14 +32,14 @@ function updateGreenStone() {
     document.body.appendChild(script);
 }
 
-// Update player names from GameMonitoring API
+// === GAMEMONITORING: Names ===
 async function updateGameMonitoring() {
     try {
         const res = await fetch(GM_API_URL);
         const data = await res.json();
         const players = data.response?.items || [];
 
-        const avatarUrl = "image.png"; // your CJ avatar
+        const avatarUrl = "image.png"; // CJ avatar
         const playerListDiv = document.getElementById("player-names");
 
         if (players.length === 0) {
@@ -58,14 +58,11 @@ async function updateGameMonitoring() {
     }
 }
 
-// Run both updates
+// Run both
 function updateAll() {
     updateGreenStone();
     updateGameMonitoring();
 }
 
-// Initial run
 updateAll();
-
-// Update every 15 seconds
 setInterval(updateAll, 15000);
