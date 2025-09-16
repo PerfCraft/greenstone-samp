@@ -1,12 +1,11 @@
 const GS_API_URL = "https://api.g-stone.ro/samp/";
 const GM_API_URL = "https://api.gamemonitoring.net/servers/9337618/players?limit=100";
 
+// Update GreenStone Dashboard (player count)
 function updateDashboard() {
-    // Remove old GS API script
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
 
-    // Load GS API (GreenStone)
     const script = document.createElement('script');
     script.id = 'samp-api';
     script.src = GS_API_URL + "?cache=" + new Date().getTime();
@@ -33,6 +32,7 @@ function updateDashboard() {
     document.body.appendChild(script);
 }
 
+// Update Player List from GameMonitoring
 async function updatePlayerList() {
     try {
         const res = await fetch(GM_API_URL);
@@ -45,10 +45,9 @@ async function updatePlayerList() {
         if (players.length === 0) {
             list.innerHTML = "<li>No players online</li>";
         } else {
-            players.forEach(p => {
+            players.forEach((p, index) => {
                 const li = document.createElement('li');
-                // Show ID + Name
-                li.innerHTML = `<img src="image.png" alt="icon"> [${p.id}] ${p.name}`;
+                li.innerHTML = `<img src="image.png" alt="icon"> [${index}] ${p.name}`;
                 list.appendChild(li);
             });
         }
@@ -62,6 +61,6 @@ async function updatePlayerList() {
 updateDashboard();
 updatePlayerList();
 
-// Refresh every 5s for dashboard, 10s for players
-setInterval(updateDashboard, 5000);
-setInterval(updatePlayerList, 10000);
+// Auto refresh
+setInterval(updateDashboard, 1000);
+setInterval(updatePlayerList, 5000);
