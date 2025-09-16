@@ -1,76 +1,48 @@
-/* Import Inter from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background: #000; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #fff; 
-}
-
-.dashboard {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: rgba(255,255,255,0.05); 
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.1);
-    backdrop-filter: blur(12px);
-}
-
-h1 {
-    font-size: 2.5rem;
-    color: #fff;
-    margin-bottom: 2rem;
-}
-
-.player-info {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #fff;
-}
-
-
-.progress-bar {
-    width: 300px;
-    max-width: 90%;
-    height: 30px;
-    background: rgba(255,255,255,0.1); 
+.player-list {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 250px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    margin: 1rem auto;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(255,255,255,0.1) inset;
+    padding: 1rem;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
 }
 
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(270deg, #fff, #ccc, #fff); 
-    border-radius: 15px 0 0 15px;
-    transition: width 0.5s ease;
-    background-size: 400% 100%;
-    animation: fillAnim 3s ease infinite;
-}
-
-@keyframes fillAnim {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 100% 0%; }
-    100% { background-position: 0% 0%; }
-}
-
-.status {
-    margin-top: 1rem;
-    font-size: 1rem;
+.player-list h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
     color: #fff;
+    margin-bottom: 1rem;
 }
 
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 6px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.2s;
+}
 
+.player-card:hover {
+    background: rgba(255,255,255,0.1);
+}
 
+.player-card img.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
 
+.player-card .player-name {
+    font-size: 0.9rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
