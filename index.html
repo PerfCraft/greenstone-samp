@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GreenStone Players</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenStone Players</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Left side: player names -->
+  <div class="player-list">
+    <h2>Players Online</h2>
+    <ul id="players"></ul>
+  </div>
 
-<!-- LEFT: Player list -->
-<div class="player-list">
-    <h2>Players</h2>
-    <div id="player-names">Loading...</div>
-</div>
-
-<!-- CENTER: Dashboard (your original untouched) -->
-<div class="dashboard">
+  <!-- Center: dashboard -->
+  <div class="dashboard">
     <h1>GreenStone Players</h1>
     <div class="player-info">
-        <span id="player-count">0</span> / <span id="max-players">0</span> Players
+      <span id="player-count">0</span> / <span id="max-players">0</span> Players
     </div>
     <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
+      <div class="progress-fill" id="progress-fill"></div>
     </div>
     <div class="status" id="status">Loading...</div>
-</div>
+  </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
