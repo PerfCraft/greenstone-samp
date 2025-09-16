@@ -47,7 +47,8 @@ async function updatePlayerList() {
         } else {
             players.forEach(p => {
                 const li = document.createElement('li');
-                li.innerHTML = `<img src="image.png" alt="icon"> ${p.name}`;
+                // Show ID + Name
+                li.innerHTML = `<img src="image.png" alt="icon"> [${p.id}] ${p.name}`;
                 list.appendChild(li);
             });
         }
@@ -61,6 +62,6 @@ async function updatePlayerList() {
 updateDashboard();
 updatePlayerList();
 
-// Refresh
+// Refresh every 5s for dashboard, 10s for players
 setInterval(updateDashboard, 5000);
 setInterval(updatePlayerList, 10000);
