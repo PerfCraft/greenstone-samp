@@ -1,15 +1,14 @@
-const API_URL = "https://api.g-stone.ro/samp/";
+const GS_API_URL = "https://api.g-stone.ro/samp/"; 
+const GM_API_URL = "https://api.gamemonitoring.net/servers/9337618/players?limit=250";
 
-function updateDashboard() {
-
-    // Remove old SA-MP API script
+// Update player count from GreenStone API
+function updateGreenStone() {
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
 
-    // Load SA-MP API
     const script = document.createElement('script');
     script.id = 'samp-api';
-    script.src = API_URL + "?cache=" + new Date().getTime();
+    script.src = GS_API_URL + "?cache=" + new Date().getTime();
     script.onload = () => {
         if (typeof api !== 'undefined') {
             const playerCount = api.players;
@@ -33,10 +32,40 @@ function updateDashboard() {
     document.body.appendChild(script);
 }
 
+// Update player names from GameMonitoring API
+async function updateGameMonitoring() {
+    try {
+        const res = await fetch(GM_API_URL);
+        const data = await res.json();
+        const players = data.response?.items || [];
+
+        const avatarUrl = "image.png"; // your CJ avatar
+        const playerListDiv = document.getElementById("player-names");
+
+        if (players.length === 0) {
+            playerListDiv.innerHTML = "<p>No players online</p>";
+        } else {
+            playerListDiv.innerHTML = players.map(p => `
+                <div class="player-card">
+                    <img src="${avatarUrl}" class="avatar" alt="">
+                    <span class="player-name">${p.name}</span>
+                </div>
+            `).join("");
+        }
+    } catch (err) {
+        document.getElementById("player-names").innerHTML = "<p>Failed to load players</p>";
+        console.error("GameMonitoring API error:", err);
+    }
+}
+
+// Run both updates
+function updateAll() {
+    updateGreenStone();
+    updateGameMonitoring();
+}
+
 // Initial run
-updateDashboard();
+updateAll();
 
-// Update every second
-setInterval(updateDashboard, 1000);
-
-
+// Update every 15 seconds
+setInterval(updateAll, 15000);
