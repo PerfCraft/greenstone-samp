@@ -1,11 +1,12 @@
 const GS_API_URL = "https://api.g-stone.ro/samp/";
 const GM_API_URL = "https://api.gamemonitoring.net/servers/9337618/players?limit=100";
 
-// === GREENSTONE: Count + Progress ===
-function updateGreenStone() {
+function updateDashboard() {
+    // Remove old GS API script
     const oldScript = document.getElementById('samp-api');
     if (oldScript) oldScript.remove();
 
+    // Load GS API (GreenStone)
     const script = document.createElement('script');
     script.id = 'samp-api';
     script.src = GS_API_URL + "?cache=" + new Date().getTime();
@@ -32,37 +33,34 @@ function updateGreenStone() {
     document.body.appendChild(script);
 }
 
-// === GAMEMONITORING: Names ===
-async function updateGameMonitoring() {
+async function updatePlayerList() {
     try {
         const res = await fetch(GM_API_URL);
         const data = await res.json();
-        const players = data.response?.items || [];
 
-        const avatarUrl = "image.png"; // CJ avatar
-        const playerListDiv = document.getElementById("player-names");
+        const players = data?.response?.items || [];
+        const list = document.getElementById('players');
+        list.innerHTML = "";
 
         if (players.length === 0) {
-            playerListDiv.innerHTML = "<p>No players online</p>";
+            list.innerHTML = "<li>No players online</li>";
         } else {
-            playerListDiv.innerHTML = players.map(p => `
-                <div class="player-card">
-                    <img src="${avatarUrl}" class="avatar" alt="">
-                    <span class="player-name">${p.name}</span>
-                </div>
-            `).join("");
+            players.forEach(p => {
+                const li = document.createElement('li');
+                li.innerHTML = `<img src="image.png" alt="icon"> ${p.name}`;
+                list.appendChild(li);
+            });
         }
     } catch (err) {
-        document.getElementById("player-names").innerHTML = "<p>Failed to load players</p>";
-        console.error("GameMonitoring API error:", err);
+        console.error("Error fetching players:", err);
+        document.getElementById('players').innerHTML = "<li>Failed to load players</li>";
     }
 }
 
-// Run both
-function updateAll() {
-    updateGreenStone();
-    updateGameMonitoring();
-}
+// Initial load
+updateDashboard();
+updatePlayerList();
 
-updateAll();
-setInterval(updateAll, 15000);
+// Refresh
+setInterval(updateDashboard, 5000);
+setInterval(updatePlayerList, 10000);
