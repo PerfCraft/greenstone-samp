@@ -5,12 +5,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background: #000; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #000;
     height: 100vh;
-    color: #fff; 
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    color: #fff;
+    position: relative;       /* Needed for absolute children */
 }
 
 /* Dashboard in the center */
@@ -67,11 +68,11 @@ h1 {
     font-size: 1rem;
 }
 
-/* Player list on the left */
+/* Player list on the right */
 .player-list {
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
     width: 250px;
     max-height: 90vh;
     overflow-y: auto;
@@ -79,6 +80,15 @@ h1 {
     background: rgba(255,255,255,0.05);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+/* Hide scrollbar */
+.player-list::-webkit-scrollbar {
+    display: none;
+}
+.player-list {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
 }
 
 .player-list h2 {
