@@ -20,13 +20,13 @@ body {
     align-items: center;
     gap: 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     padding: 20px;
+    position: relative;
 }
 
 /* Dashboard */
 .dashboard {
-    flex: 1;
     text-align: center;
     padding: 2rem;
     background: rgba(255,255,255,0.05); 
@@ -35,6 +35,7 @@ body {
     backdrop-filter: blur(12px);
     width: 100%;
     max-width: 600px;
+    margin: 0 auto; /* center on desktop */
 }
 
 h1 {
@@ -92,6 +93,7 @@ h1 {
     box-shadow: 0 0 20px rgba(255,255,255,0.1);
 }
 
+/* Hide scrollbar */
 .player-list::-webkit-scrollbar { display: none; }
 .player-list { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -119,19 +121,22 @@ h1 {
     margin-right: 10px;
 }
 
-/* Desktop layout: side by side */
-@media (min-width: 768px) {
+/* Desktop layout: dashboard center, list on right */
+@media (min-width: 992px) {
     .container {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center; /* center dashboard */
         align-items: flex-start;
     }
 
     .dashboard {
-        flex: 1;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .player-list {
-        flex-shrink: 0;
+        position: absolute;
+        right: 20px;
+        top: 20px;
     }
 }
