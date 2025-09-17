@@ -7,22 +7,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Left side: player names -->
-  <div class="player-list">
-    <h2>Players Online</h2>
-    <ul id="players"></ul>
-  </div>
+  <div class="container">
+    <!-- Player list -->
+    <div class="player-list">
+      <h2>Players Online</h2>
+      <ul id="players"></ul>
+    </div>
 
-  <!-- Center: dashboard -->
-  <div class="dashboard">
-    <h1>GreenStone Players</h1>
-    <div class="player-info">
-      <span id="player-count">0</span> / <span id="max-players">0</span> Players
+    <!-- Dashboard -->
+    <div class="dashboard">
+      <h1>GreenStone Players</h1>
+      <div class="player-info">
+        <span id="player-count">0</span> / <span id="max-players">0</span> Players
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="status" id="status">Loading...</div>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progress-fill"></div>
-    </div>
-    <div class="status" id="status">Loading...</div>
   </div>
 
   <script src="script.js"></script>
