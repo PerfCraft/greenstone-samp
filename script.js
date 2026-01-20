@@ -1,8 +1,8 @@
 const GS_API_URL = "https://api.g-stone.ro/samp/";
 
-// Store player count history (last 24 hours)
-let playerHistory = [];
-const MAX_HISTORY_POINTS = 24; // One point per hour for 24 hours
+// Store player count history (last 24 hours) - one entry per hour
+let playerHistory = new Array(24).fill(null);
+let lastUpdateHour = -1;
 
 // Initialize Chart
 let playerChart;
@@ -106,27 +106,24 @@ function initChart() {
 function updateChart(playerCount) {
     if (!playerChart) return;
     
-    // Simulate hourly data (in production, you would store real hourly data)
-    // For demo purposes, we'll generate random variations
-    const currentHour = new Date().getHours();
-    const data = playerChart.data.datasets[0].data;
+    const now = new Date();
+    const currentHour = now.getHours();
     
-    // Shift data and add new point
-    if (playerHistory.length >= MAX_HISTORY_POINTS) {
+    // Only update the history when we enter a new hour
+    if (currentHour !== lastUpdateHour) {
+        // Shift all data to the left (remove oldest hour)
         playerHistory.shift();
+        // Add new hour data at the end
+        playerHistory.push(playerCount);
+        lastUpdateHour = currentHour;
+    } else {
+        // Update current hour data (last position)
+        playerHistory[playerHistory.length - 1] = playerCount;
     }
-    playerHistory.push(playerCount);
     
-    // Update chart with simulated 24h data
-    // In real implementation, you'd fetch this from a database
-    for (let i = 0; i < 24; i++) {
-        if (i < playerHistory.length) {
-            data[24 - playerHistory.length + i] = playerHistory[i];
-        } else {
-            // Generate random historical data for demo
-            data[i] = Math.floor(Math.random() * playerCount * 1.5);
-        }
-    }
+    // Update chart with actual history (fill nulls with 0 for display)
+    const displayData = playerHistory.map(val => val === null ? 0 : val);
+    playerChart.data.datasets[0].data = displayData;
     
     playerChart.update('none'); // Update without animation to prevent shifting
 }
