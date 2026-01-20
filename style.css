@@ -109,8 +109,15 @@ h1 {
     text-align: center;
 }
 
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
 .player-chart canvas {
-    max-height: 400px;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 /* Desktop layout */
@@ -154,7 +161,7 @@ h1 {
         font-size: 1.2rem;
     }
 
-    .player-chart canvas {
-        max-height: 300px;
+    .chart-container {
+        height: 300px;
     }
 }

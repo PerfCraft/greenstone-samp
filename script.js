@@ -52,7 +52,7 @@ function initChart() {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: true,
@@ -93,6 +93,9 @@ function initChart() {
                         color: 'rgba(255, 255, 255, 0.1)'
                     }
                 }
+            },
+            animation: {
+                duration: 750
             }
         }
     });
@@ -123,7 +126,7 @@ function updateChart(playerCount) {
         }
     }
     
-    playerChart.update();
+    playerChart.update('none'); // Update without animation to prevent shifting
 }
 
 function updateDashboard() {
