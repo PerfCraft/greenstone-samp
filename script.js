@@ -74,10 +74,12 @@ function initChart() {
             },
             scales: {
                 y: {
+                    min: 0,
+                    max: 250,
                     beginAtZero: true,
                     ticks: {
                         color: '#fff',
-                        stepSize: 5
+                        stepSize: 25
                     },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
