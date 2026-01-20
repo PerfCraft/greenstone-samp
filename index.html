@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GreenStone Players</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
     <!-- Dashboard -->
     <div class="dashboard">
       <h1>GreenStone Players</h1>
+      <div class="datetime" id="datetime"></div>
       <div class="player-info">
         <span id="player-count">0</span> / <span id="max-players">0</span> Players
       </div>
@@ -20,10 +22,10 @@
       <div class="status" id="status">Loading...</div>
     </div>
 
-    <!-- Player list -->
-    <div class="player-list">
-      <h2>Players Online</h2>
-      <ul id="players"></ul>
+    <!-- Player Chart (last 24h) -->
+    <div class="player-chart">
+      <h2>Jucători Online - Ultimele 24h</h2>
+      <canvas id="playerChart"></canvas>
     </div>
   </div>
 

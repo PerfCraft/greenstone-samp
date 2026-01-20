@@ -16,9 +16,9 @@ body {
 /* Wrapper */
 .container {
     display: flex;
-    flex-direction: column; /* mobile-first (stacked) */
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
     max-width: 1400px;
     padding: 20px;
@@ -35,12 +35,23 @@ body {
     backdrop-filter: blur(12px);
     width: 100%;
     max-width: 600px;
-    margin: 0 auto; /* center on desktop */
+    margin: 0 auto;
+}
+
+/* Date and Time Display */
+.datetime {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 
 h1 {
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .player-info {
@@ -81,62 +92,69 @@ h1 {
     font-size: 1rem;
 }
 
-/* Player list */
-.player-list {
+/* Player Chart */
+.player-chart {
     width: 100%;
-    max-width: 350px;
-    max-height: 70vh;
-    overflow-y: auto;
-    padding: 1rem;
+    max-width: 900px;
+    padding: 2rem;
     background: rgba(255,255,255,0.05);
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
 }
 
-/* Hide scrollbar */
-.player-list::-webkit-scrollbar { display: none; }
-.player-list { -ms-overflow-style: none; scrollbar-width: none; }
-
-.player-list h2 {
-    margin: 0 0 1rem;
-    font-size: 1.2rem;
+.player-chart h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
-.player-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.player-chart canvas {
+    max-height: 400px;
 }
 
-.player-list li {
-    display: flex;
-    align-items: center;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.player-list img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Desktop layout: dashboard center, list on right */
+/* Desktop layout */
 @media (min-width: 992px) {
     .container {
-        flex-direction: row;
-        justify-content: center; /* center dashboard */
-        align-items: flex-start;
+        align-items: center;
     }
 
     .dashboard {
-        margin-right: auto;
-        margin-left: auto;
+        margin: 0 auto;
     }
 
-    .player-list {
-        position: absolute;
-        right: 20px;
-        top: 20px;
+    .player-chart {
+        margin: 0 auto;
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .datetime {
+        font-size: 0.9rem;
+    }
+
+    .player-info {
+        font-size: 1.2rem;
+    }
+
+    .player-chart {
+        padding: 1.5rem;
+    }
+
+    .player-chart h2 {
+        font-size: 1.2rem;
+    }
+
+    .player-chart canvas {
+        max-height: 300px;
     }
 }
