@@ -1,11 +1,64 @@
 const GS_API_URL = "https://api.g-stone.ro/samp/";
+const STORAGE_KEY = 'greenstone_player_history';
 
 // Store player count history (last 24 hours) - one entry per hour
-let playerHistory = new Array(24).fill(null);
-let lastUpdateHour = -1;
+let playerHistory = [];
 
 // Initialize Chart
 let playerChart;
+
+// Load history from localStorage
+function loadHistory() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            const data = JSON.parse(stored);
+            // Validate and clean old data (older than 24 hours)
+            const now = Date.now();
+            playerHistory = data.filter(entry => {
+                return (now - entry.timestamp) < 24 * 60 * 60 * 1000; // 24 hours
+            });
+        }
+    } catch (e) {
+        console.error('Error loading history:', e);
+        playerHistory = [];
+    }
+}
+
+// Save history to localStorage
+function saveHistory() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(playerHistory));
+    } catch (e) {
+        console.error('Error saving history:', e);
+    }
+}
+
+// Add or update player count for current hour
+function addPlayerCount(count) {
+    const now = new Date();
+    const currentHourTimestamp = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0, 0).getTime();
+    
+    // Check if we already have an entry for this hour
+    const existingIndex = playerHistory.findIndex(entry => entry.timestamp === currentHourTimestamp);
+    
+    if (existingIndex >= 0) {
+        // Update existing hour
+        playerHistory[existingIndex].count = count;
+    } else {
+        // Add new hour
+        playerHistory.push({
+            timestamp: currentHourTimestamp,
+            count: count
+        });
+        
+        // Keep only last 24 hours
+        const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+        playerHistory = playerHistory.filter(entry => entry.timestamp >= cutoff);
+    }
+    
+    saveHistory();
+}
 
 function updateDateTime() {
     const now = new Date();
@@ -101,31 +154,29 @@ function initChart() {
             }
         }
     });
+    
+    // Load initial data
+    updateChartFromHistory();
 }
 
-function updateChart(playerCount) {
+function updateChartFromHistory() {
     if (!playerChart) return;
     
     const now = new Date();
-    const currentHour = now.getHours();
+    const chartData = new Array(24).fill(0);
     
-    // Only update the history when we enter a new hour
-    if (currentHour !== lastUpdateHour) {
-        // Shift all data to the left (remove oldest hour)
-        playerHistory.shift();
-        // Add new hour data at the end
-        playerHistory.push(playerCount);
-        lastUpdateHour = currentHour;
-    } else {
-        // Update current hour data (last position)
-        playerHistory[playerHistory.length - 1] = playerCount;
+    // Fill chart with data from history
+    for (let i = 0; i < 24; i++) {
+        const hourTimestamp = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() - (23 - i), 0, 0, 0).getTime();
+        
+        const entry = playerHistory.find(e => e.timestamp === hourTimestamp);
+        if (entry) {
+            chartData[i] = entry.count;
+        }
     }
     
-    // Update chart with actual history (fill nulls with 0 for display)
-    const displayData = playerHistory.map(val => val === null ? 0 : val);
-    playerChart.data.datasets[0].data = displayData;
-    
-    playerChart.update('none'); // Update without animation to prevent shifting
+    playerChart.data.datasets[0].data = chartData;
+    playerChart.update('none');
 }
 
 function updateDashboard() {
@@ -150,8 +201,9 @@ function updateDashboard() {
 
             document.getElementById('status').textContent = "SA-MP Server Online";
             
-            // Update chart with current player count
-            updateChart(playerCount);
+            // Add player count to history and update chart
+            addPlayerCount(playerCount);
+            updateChartFromHistory();
         } else {
             document.getElementById('status').textContent = "API error";
         }
@@ -164,6 +216,7 @@ function updateDashboard() {
 }
 
 // Initial load
+loadHistory();
 updateDateTime();
 initChart();
 updateDashboard();
@@ -173,8 +226,3 @@ setInterval(updateDateTime, 1000);
 
 // Refresh dashboard every 5 seconds
 setInterval(updateDashboard, 5000);
-
-// Update chart every hour (for real hourly data points)
-setInterval(() => {
-    updateDashboard(); // This will also update the chart
-}, 3600000); // 1 hour in milliseconds
